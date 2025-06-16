@@ -7,41 +7,47 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
+import com.example.webtoonsearchapp.ui.common.item.BottomNavigationItem
+import com.example.webtoonsearchapp.ui.common.item.TopAppBarItem
+import com.example.webtoonsearchapp.ui.common.screen.NavHostScreen
 import com.example.webtoonsearchapp.ui.theme.WebToonSearchAppTheme
+import com.example.webtoonsearchapp.util.rememberAppState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             WebToonSearchAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                val appState = rememberAppState()
+
+                Scaffold(
+                    topBar = {
+                        TopAppBarItem(
+                            isBackNav = false,
+                            isVisibleSearchBtn = true,
+                            topBarTitle = stringResource(R.string.main),
+                            onClickBackNav = appState::navigateUp,
+                            onClickSearchBtn = appState::navigateToSearchScreen
+                        )
+                    },
+                    bottomBar = {
+                        BottomNavigationItem(
+                            navigateToRoute = appState::navigateToBottomBarRoute
+                        )
+                    },
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    NavHostScreen(
+                        navController = appState.navController,
+                        navigateToViewer = appState::navigateToViewerScreen,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WebToonSearchAppTheme {
-        Greeting("Android")
     }
 }

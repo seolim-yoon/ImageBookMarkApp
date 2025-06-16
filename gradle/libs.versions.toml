@@ -16,6 +16,8 @@ paging = "3.3.6"
 navigation = "2.9.0"
 jetbrainsKotlinJvm = "2.0.20"
 inject = "1"
+glideCompose = "1.0.0-beta01"
+room = "2.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +54,16 @@ paging-common-ktx = { group = "androidx.paging", name = "paging-common-ktx", ver
 
 # Navigation
 navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+
+# Glide
+glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glideCompose"}
+
+# Room
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room"}
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room"}
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room"}
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

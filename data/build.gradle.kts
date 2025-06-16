@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.serialization.converter)
     implementation(libs.kotlin.serialization)
@@ -43,4 +45,9 @@ dependencies {
     implementation(libs.okhttp.interceptor)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+    ksp(libs.room.compiler)
+
 }

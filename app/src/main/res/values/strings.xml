@@ -2,4 +2,6 @@
     <string name="app_name">WebToonSearchApp</string>
     <string name="refresh">새로고침</string>
     <string name="empty_msg">검색 키워드 결과가 없습니다.</string>
+    <string name="main">메인</string>
+    <string name="bookmark">북마크</string>
 </resources>

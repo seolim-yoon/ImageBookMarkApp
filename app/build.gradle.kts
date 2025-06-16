@@ -54,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -70,6 +72,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.kotlin.serialization)
     implementation(libs.navigation)
+    implementation(libs.glide.compose)
+    implementation(libs.paging.compose)
+    implementation(libs.paging.common.ktx)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.tooling)
