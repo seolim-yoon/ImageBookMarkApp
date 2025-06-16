@@ -23,14 +23,14 @@ class SearchRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = SearchImagePagingSource.PAGE_SIZE,
-                prefetchDistance = 1,
+                prefetchDistance = SearchImagePagingSource.PRE_FETCH_SIZE
             ),
             pagingSourceFactory = {
                 SearchImagePagingSource(requestApi = { nextPage ->
                     searchApi.searchImage(
                         keyword = keyword,
-                        display = 10,
-                        start = nextPage * 10
+                        display = SearchImagePagingSource.PAGE_SIZE,
+                        start = SearchImagePagingSource.DEFAULT_PAGE + ((nextPage - 1) * SearchImagePagingSource.PAGE_SIZE)
                     ).items
                 })
             }

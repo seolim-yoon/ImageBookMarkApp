@@ -16,13 +16,13 @@ class SearchImagePagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ImageDTO.ImageItem> {
         return try {
-            val pageIndex = params.key ?: 0
+            val pageIndex = params.key ?: DEFAULT_PAGE
             val remoteData = requestApi(pageIndex)
             val nextKey = if (remoteData.isEmpty()) null else pageIndex + 1
 
             LoadResult.Page(
                 data = remoteData,
-                prevKey = if (pageIndex == 0) null else pageIndex - 1,
+                prevKey = if (pageIndex == 1) null else pageIndex - 1,
                 nextKey = nextKey
             )
         } catch (e: Exception) {
@@ -32,6 +32,7 @@ class SearchImagePagingSource(
 
     companion object {
         const val PAGE_SIZE = 50
-        const val INITIAL_SIZE = 50
+        const val PRE_FETCH_SIZE = 3
+        const val DEFAULT_PAGE = 1
     }
 }

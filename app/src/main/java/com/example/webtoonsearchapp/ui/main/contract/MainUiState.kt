@@ -1,6 +1,8 @@
 package com.example.webtoonsearchapp.ui.main.contract
 
 import com.example.webtoonsearchapp.base.UiState
-import com.example.webtoonsearchapp.util.DEFAULT_KEYWORD
+import com.example.webtoonsearchapp.model.ImageUiModel
 
-data class MainUiState(): UiState
+data class MainUiState(
+    val bookMarkList: List<ImageUiModel> = emptyList()
+): UiState

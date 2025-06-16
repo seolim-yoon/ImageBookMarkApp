@@ -16,8 +16,8 @@ interface BookMarkDao {
     suspend fun getAllBookMarkItemIds(): List<String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addBookMarkItem(item: BookMark)
+    suspend fun addBookMarkItem(item: BookMark): Long
 
     @Delete
-    suspend fun removeBookMarkItem(item: BookMark)
+    suspend fun removeBookMarkItem(item: BookMark): Int
 }

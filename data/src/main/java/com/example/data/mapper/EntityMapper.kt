@@ -6,17 +6,6 @@ import com.example.domain.entity.ImageEntity
 import javax.inject.Inject
 
 class EntityMapper @Inject constructor() {
-    fun mapToImageEntity(imageList: List<ImageDTO.ImageItem>): List<ImageEntity> =
-        imageList.map { image ->
-            ImageEntity(
-                id = image.title + "_" + image.thumbnail,
-                title = image.title,
-                thumbnail = image.thumbnail,
-                isBookMark = false
-            )
-        }
-
-
     fun mapToImageEntity(image: ImageDTO.ImageItem): ImageEntity =
         ImageEntity(
             id = image.title + "_" + image.thumbnail,

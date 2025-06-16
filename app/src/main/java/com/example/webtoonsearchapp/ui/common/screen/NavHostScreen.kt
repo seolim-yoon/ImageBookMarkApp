@@ -1,8 +1,11 @@
 package com.example.webtoonsearchapp.ui.common.screen
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,7 +40,13 @@ internal fun NavHostScreen(
         }
 
         composable<ScreenType.BookMark> {
-            BookMarkScreen()
+            val viewModel: MainViewModel = hiltViewModel()
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            BookMarkScreen(
+                state = state,
+                onEvent = viewModel::onEvent,
+                effectFlow = viewModel.effect
+            )
         }
 
         composable<ScreenType.Search> {

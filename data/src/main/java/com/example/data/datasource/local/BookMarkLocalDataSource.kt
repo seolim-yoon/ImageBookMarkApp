@@ -12,9 +12,7 @@ class BookMarkLocalDataSource @Inject constructor(
 ) {
     fun getAllBookMarkItem(): Flow<List<BookMark>> = bookMarkDao.getAllBookMarkItem()
 
-    suspend fun getAllBookMarkItemIds(): List<String> = bookMarkDao.getAllBookMarkItemIds()
+    suspend fun addBookMarkItem(item: BookMark): Long = bookMarkDao.addBookMarkItem(item)
 
-    suspend fun addBookMarkItem(item: BookMark) = bookMarkDao.addBookMarkItem(item)
-
-    suspend fun removeBookMarkItem(item: BookMark) = bookMarkDao.removeBookMarkItem(item)
+    suspend fun removeBookMarkItem(item: BookMark): Int = bookMarkDao.removeBookMarkItem(item)
 }

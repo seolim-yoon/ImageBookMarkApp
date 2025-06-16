@@ -5,7 +5,6 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.webtoonsearchapp.model.ImageUiModel
 import com.example.webtoonsearchapp.ui.main.contract.MainUiEffect
 import com.example.webtoonsearchapp.ui.main.contract.MainUiEvent
-import com.example.webtoonsearchapp.ui.main.contract.MainUiState
 import com.example.webtoonsearchapp.ui.main.item.MainImageListItem
 import kotlinx.coroutines.flow.Flow
 

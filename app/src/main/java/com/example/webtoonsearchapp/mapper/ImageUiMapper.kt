@@ -12,4 +12,12 @@ class ImageUiMapper @Inject constructor() {
             thumbnail = image.thumbnail,
             isBookMark = image.isBookMark,
         )
+
+    fun mapToImageEntity(image: ImageUiModel): ImageEntity =
+        ImageEntity(
+            id = image.id,
+            title = image.title,
+            thumbnail = image.thumbnail,
+            isBookMark = image.isBookMark,
+        )
 }
