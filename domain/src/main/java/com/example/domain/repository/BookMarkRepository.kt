@@ -8,5 +8,5 @@ interface BookMarkRepository {
 
     suspend fun addBookMarkItem(item: ImageEntity): Long
 
-    suspend fun removeBookMarkItem(item: ImageEntity): Int
+    suspend fun removeBookMarkItems(items: List<ImageEntity>): Int
 }

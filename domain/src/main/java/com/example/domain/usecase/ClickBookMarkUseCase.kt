@@ -13,6 +13,6 @@ class ClickBookMarkUseCase @Inject constructor(
     ): Boolean = if (isAdd) {
         bookMarkRepository.addBookMarkItem(bookMarkItem) != -1L
     } else {
-        bookMarkRepository.removeBookMarkItem(bookMarkItem) > 0
+        bookMarkRepository.removeBookMarkItems(listOf(bookMarkItem)) > 0 // TODO : 여러개 삭제 처리
     }
 }

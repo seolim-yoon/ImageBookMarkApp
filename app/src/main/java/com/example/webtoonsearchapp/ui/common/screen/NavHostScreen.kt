@@ -1,6 +1,5 @@
 package com.example.webtoonsearchapp.ui.common.screen
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -23,29 +22,30 @@ internal fun NavHostScreen(
     navigateToViewer:() -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
         startDestination = ScreenType.Main,
         modifier = modifier
     ) {
         composable<ScreenType.Main> {
-            val viewModel: MainViewModel = hiltViewModel()
-            val pagingList = viewModel.pagingFlow.collectAsLazyPagingItems()
+            val pagingList = mainViewModel.pagingFlow.collectAsLazyPagingItems()
 
             MainScreen(
                 pagingList = pagingList,
-                onEvent = viewModel::onEvent,
-                effectFlow = viewModel.effect
+                onEvent = mainViewModel::onEvent,
+                effectFlow = mainViewModel.effect
             )
         }
 
         composable<ScreenType.BookMark> {
-            val viewModel: MainViewModel = hiltViewModel()
-            val state by viewModel.state.collectAsStateWithLifecycle()
+            val state by mainViewModel.state.collectAsStateWithLifecycle()
+
             BookMarkScreen(
                 state = state,
-                onEvent = viewModel::onEvent,
-                effectFlow = viewModel.effect
+                onEvent = mainViewModel::onEvent,
+                effectFlow = mainViewModel.effect
             )
         }
 

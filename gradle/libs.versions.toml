@@ -50,6 +50,7 @@ okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercept
 
 # Paging
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
+paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 paging-common-ktx = { group = "androidx.paging", name = "paging-common-ktx", version.ref = "paging" }
 
 # Navigation

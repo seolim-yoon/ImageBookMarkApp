@@ -1,6 +1,5 @@
 package com.example.webtoonsearchapp.ui.main
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -26,7 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getMainImageListUseCase: GetMainImageListUseCase,
+    getMainImageListUseCase: GetMainImageListUseCase,
     private val getBookMarkListUseCase: GetBookMarkListUseCase,
     private val clickBookMarkUseCase: ClickBookMarkUseCase,
     private val imageUiMapper: ImageUiMapper
@@ -52,7 +51,6 @@ class MainViewModel @Inject constructor(
     private fun getBookMarkList() {
         viewModelScope.launch {
             getBookMarkListUseCase().collect { result ->
-                Log.v("seolim", "result : " + result.size)
                 setState {
                     copy(
                         bookMarkList = result.map { bookMark ->
@@ -65,30 +63,17 @@ class MainViewModel @Inject constructor(
     }
 
     private fun clickBookMark(imageUiModel: ImageUiModel) {
-        val updatedBookMark = !imageUiModel.isBookMark
-
        viewModelScope.launch(Dispatchers.IO) {
-           val isSuccess = clickBookMarkUseCase(
-                isAdd = updatedBookMark,
+           clickBookMarkUseCase(
+                isAdd = !imageUiModel.isBookMark,
                 bookMarkItem = imageUiMapper.mapToImageEntity(imageUiModel)
             )
-           if (isSuccess) {
-            // 성공했을 때만 pagingFlow 변경되도록
-           }
         }
     }
 
     override fun onEvent(event: MainUiEvent) {
         when (event) {
-            is MainUiEvent.LoadMore -> {
-
-            }
-
             is MainUiEvent.Refresh -> {
-
-            }
-
-            is MainUiEvent.InputKeyword -> {
 
             }
 

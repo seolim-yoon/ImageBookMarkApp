@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 
 sealed interface ScreenType {
     @Serializable
+    data object Start : ScreenType
+    @Serializable
     data object Main : ScreenType
     @Serializable
     data object BookMark : ScreenType

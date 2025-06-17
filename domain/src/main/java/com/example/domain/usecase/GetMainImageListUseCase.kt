@@ -9,7 +9,5 @@ import javax.inject.Inject
 class GetMainImageListUseCase @Inject constructor(
     private val searchRepository: SearchRepository
 ) {
-    operator fun invoke(
-        keyword: String
-    ): Flow<PagingData<ImageEntity>> = searchRepository.searchImage(keyword)
+    operator fun invoke(keyword: String): Flow<PagingData<ImageEntity>> = searchRepository.searchImage(keyword)
 }

@@ -20,6 +20,6 @@ class BookMarkRepositoryImpl @Inject constructor(
     override suspend fun addBookMarkItem(item: ImageEntity): Long =
         bookMarkLocalDataSource.addBookMarkItem(entityMapper.mapToBookMark(item))
 
-    override suspend fun removeBookMarkItem(item: ImageEntity): Int =
-        bookMarkLocalDataSource.removeBookMarkItem(entityMapper.mapToBookMark(item))
+    override suspend fun removeBookMarkItems(items: List<ImageEntity>): Int =
+        bookMarkLocalDataSource.removeBookMarkItems(entityMapper.mapToBookMark(items))
 }

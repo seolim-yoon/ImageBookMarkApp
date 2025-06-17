@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.example.data.dto.ImageDTO
 
 class SearchImagePagingSource(
-    private val requestApi: suspend (nextPage: Int) -> List<ImageDTO.ImageItem>
+    private val requestApi: suspend (pageIndex: Int) -> List<ImageDTO.ImageItem>
 ) : PagingSource<Int, ImageDTO.ImageItem>() {
     override fun getRefreshKey(state: PagingState<Int, ImageDTO.ImageItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

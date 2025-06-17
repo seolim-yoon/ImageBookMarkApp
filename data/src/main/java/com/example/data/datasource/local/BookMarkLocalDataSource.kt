@@ -14,5 +14,5 @@ class BookMarkLocalDataSource @Inject constructor(
 
     suspend fun addBookMarkItem(item: BookMark): Long = bookMarkDao.addBookMarkItem(item)
 
-    suspend fun removeBookMarkItem(item: BookMark): Int = bookMarkDao.removeBookMarkItem(item)
+    suspend fun removeBookMarkItems(items: List<BookMark>): Int = bookMarkDao.removeBookMarkItems(items)
 }

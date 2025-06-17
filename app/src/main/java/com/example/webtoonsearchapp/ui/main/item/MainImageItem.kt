@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +53,7 @@ internal fun MainImageItem(
             Icon(
                 imageVector = if (image.isBookMark) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                 contentDescription = null,
+                tint = if (image.isBookMark) Color.Red else Color.Black,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .clickable {

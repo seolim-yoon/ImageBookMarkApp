@@ -12,12 +12,9 @@ interface BookMarkDao {
     @Query("SELECT * FROM BookMark")
     fun getAllBookMarkItem(): Flow<List<BookMark>>
 
-    @Query("SELECT image_id FROM BookMark")
-    suspend fun getAllBookMarkItemIds(): List<String>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addBookMarkItem(item: BookMark): Long
 
     @Delete
-    suspend fun removeBookMarkItem(item: BookMark): Int
+    suspend fun removeBookMarkItems(items: List<BookMark>): Int
 }

@@ -26,11 +26,11 @@ class SearchRepositoryImpl @Inject constructor(
                 prefetchDistance = SearchImagePagingSource.PRE_FETCH_SIZE
             ),
             pagingSourceFactory = {
-                SearchImagePagingSource(requestApi = { nextPage ->
+                SearchImagePagingSource(requestApi = { pageIndex ->
                     searchApi.searchImage(
                         keyword = keyword,
                         display = SearchImagePagingSource.PAGE_SIZE,
-                        start = SearchImagePagingSource.DEFAULT_PAGE + ((nextPage - 1) * SearchImagePagingSource.PAGE_SIZE)
+                        start = SearchImagePagingSource.DEFAULT_PAGE + ((pageIndex - 1) * SearchImagePagingSource.PAGE_SIZE)
                     ).items
                 })
             }

@@ -24,18 +24,19 @@ class EntityMapper @Inject constructor() {
             )
         }
 
+    fun mapToBookMark(imageList: List<ImageEntity>): List<BookMark> =
+        imageList.map { image ->
+            BookMark(
+                id = image.title + "_" + image.thumbnail,
+                title = image.title,
+                thumbnail = image.thumbnail
+            )
+        }
+
     fun mapToBookMark(image: ImageEntity): BookMark =
         BookMark(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
             thumbnail = image.thumbnail
-        )
-
-    fun mapToImageEntity(bookMark: BookMark): ImageEntity =
-        ImageEntity(
-            id = bookMark.title + "_" + bookMark.thumbnail,
-            title = bookMark.title,
-            thumbnail = bookMark.thumbnail,
-            isBookMark = true
         )
 }
