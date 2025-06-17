@@ -4,4 +4,5 @@
     <string name="empty_msg">검색 키워드 결과가 없습니다.</string>
     <string name="main">메인</string>
     <string name="bookmark">북마크</string>
+    <string name="search_place_holder">검색어를 입력하세요.</string>
 </resources>

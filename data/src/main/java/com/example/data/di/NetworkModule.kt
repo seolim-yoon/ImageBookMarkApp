@@ -1,6 +1,6 @@
 package com.example.data.di
 
-import com.example.data.datasource.remote.api.SearchApi
+import com.example.data.data.remote.api.ImageApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -60,6 +60,6 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesSearchApi(retrofit: Retrofit): SearchApi =
-        retrofit.create(SearchApi::class.java)
+    fun providesImageApi(retrofit: Retrofit): ImageApi =
+        retrofit.create(ImageApi::class.java)
 }

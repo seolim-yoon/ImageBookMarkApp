@@ -15,7 +15,6 @@ internal fun BookMarkScreen(
 ) {
     BookMarkImageListItem(
         imageList = state.bookMarkList,
-        onClickImageItem = { onEvent(MainUiEvent.ClickImageItem(it)) },
-        onClickBookMark = { onEvent(MainUiEvent.ClickBookMark(it)) }
+        onClickImageItem = { onEvent(MainUiEvent.ClickImageItem(it)) }
     )
 }

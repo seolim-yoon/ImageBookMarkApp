@@ -1,13 +1,18 @@
-package com.example.data.datasource.local.database
+package com.example.data.data.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.data.data.local.database.dao.BookMarkDao
+import com.example.data.data.local.database.dao.WebToonImageDao
+import com.example.data.data.local.database.entity.BookMark
+import com.example.data.data.local.database.entity.WebToonImage
 
-@Database(entities = [BookMark::class], version = 1)
+@Database(entities = [BookMark::class, WebToonImage::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bookMarkDao(): BookMarkDao
+    abstract fun webToonImageDao(): WebToonImageDao
 
     companion object {
         @Volatile

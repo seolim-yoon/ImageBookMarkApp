@@ -1,10 +1,11 @@
-package com.example.data.datasource.local.database
+package com.example.data.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.data.data.local.database.entity.BookMark
 import kotlinx.coroutines.flow.Flow
 
 @Dao

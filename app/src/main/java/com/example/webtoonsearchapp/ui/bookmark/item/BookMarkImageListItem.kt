@@ -11,14 +11,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.webtoonsearchapp.model.ImageUiModel
 import com.example.webtoonsearchapp.ui.theme.WebToonSearchAppTheme
-import com.example.webtoonsearchapp.util.IMAGE_ITEM_TYPE
+import com.example.webtoonsearchapp.util.HORIZONTAL_IMAGE_ITEM_TYPE
 import com.example.webtoonsearchapp.util.PreviewImageList
 
 @Composable
 internal fun BookMarkImageListItem(
     imageList: List<ImageUiModel>,
-    onClickImageItem: (ImageUiModel) -> Unit,
-    onClickBookMark: (ImageUiModel) -> Unit
+    onClickImageItem: (ImageUiModel) -> Unit
 ) {
     LazyColumn(
         contentPadding = PaddingValues(20.dp),
@@ -27,13 +26,12 @@ internal fun BookMarkImageListItem(
     ) {
         items(
             key = { it.id },
-            contentType = { IMAGE_ITEM_TYPE },
+            contentType = { HORIZONTAL_IMAGE_ITEM_TYPE },
             items = imageList
         ) { image ->
             BookMarkImageItem(
                 image = image,
-                onClickImageItem = { onClickImageItem(image) },
-                onClickBookMark = { onClickBookMark(image) }
+                onClickImageItem = { onClickImageItem(image) }
             )
         }
     }
@@ -45,8 +43,7 @@ private fun PreviewBookMarkImageListItem() {
     WebToonSearchAppTheme {
         BookMarkImageListItem(
             imageList = PreviewImageList,
-            onClickImageItem = {},
-            onClickBookMark = {}
+            onClickImageItem = {}
         )
     }
 }

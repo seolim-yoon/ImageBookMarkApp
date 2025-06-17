@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.example.webtoonsearchapp.model.ImageUiModel
 import com.example.webtoonsearchapp.util.IMAGE_GRID
+import com.example.webtoonsearchapp.util.VERTICAL_IMAGE_ITEM_TYPE
 
 @Composable
 internal fun MainImageListItem(
@@ -26,6 +27,7 @@ internal fun MainImageListItem(
         modifier = Modifier.fillMaxSize()
     ) {
         items(
+            contentType = { VERTICAL_IMAGE_ITEM_TYPE },
             count = pagingList.itemCount
         ) { index ->
             pagingList[index]?.let { image ->

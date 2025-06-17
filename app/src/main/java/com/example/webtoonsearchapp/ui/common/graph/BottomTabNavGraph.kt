@@ -1,4 +1,4 @@
-package com.example.webtoonsearchapp.ui.common.screen
+package com.example.webtoonsearchapp.ui.common.graph
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,18 +12,15 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.webtoonsearchapp.ui.bookmark.screen.BookMarkScreen
 import com.example.webtoonsearchapp.ui.main.MainViewModel
 import com.example.webtoonsearchapp.ui.main.screen.MainScreen
-import com.example.webtoonsearchapp.ui.search.screen.SearchScreen
-import com.example.webtoonsearchapp.ui.viewer.ViewerScreen
 import com.example.webtoonsearchapp.util.ScreenType
 
 @Composable
-internal fun NavHostScreen(
+internal fun BottomTabNavGraph(
     navController: NavHostController,
-    navigateToViewer:() -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     val mainViewModel: MainViewModel = hiltViewModel()
+
     NavHost(
         navController = navController,
         startDestination = ScreenType.Main,
@@ -47,14 +44,6 @@ internal fun NavHostScreen(
                 onEvent = mainViewModel::onEvent,
                 effectFlow = mainViewModel.effect
             )
-        }
-
-        composable<ScreenType.Search> {
-            SearchScreen()
-        }
-
-        composable<ScreenType.Viewer> {
-            ViewerScreen()
         }
     }
 }

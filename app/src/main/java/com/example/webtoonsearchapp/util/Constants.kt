@@ -2,6 +2,8 @@ package com.example.webtoonsearchapp.util
 
 const val IMAGE_GRID = 3
 
-const val IMAGE_ITEM_TYPE = "ImageItemType"
-const val MAIN_KEYWORD = "만화"
+const val VERTICAL_IMAGE_ITEM_TYPE = "VerticalImageItemType"
+const val HORIZONTAL_IMAGE_ITEM_TYPE = "HorizontalImageItemType"
 const val DEFAULT_KEYWORD = ""
+
+const val SEARCH_TIME_DELAY = 1000L

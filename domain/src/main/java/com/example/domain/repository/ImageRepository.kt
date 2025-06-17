@@ -4,6 +4,6 @@ import androidx.paging.PagingData
 import com.example.domain.entity.ImageEntity
 import kotlinx.coroutines.flow.Flow
 
-interface SearchRepository {
-    fun getWebToonItemByKeyword(keyword: String): Flow<PagingData<ImageEntity>>
+interface ImageRepository {
+    fun getImageList(): Flow<PagingData<ImageEntity>>
 }

@@ -1,12 +1,13 @@
 package com.example.data.mapper
 
-import com.example.data.datasource.local.database.BookMark
+import com.example.data.data.local.database.entity.BookMark
+import com.example.data.data.local.database.entity.WebToonImage
 import com.example.data.dto.ImageDTO
 import com.example.domain.entity.ImageEntity
 import javax.inject.Inject
 
 class EntityMapper @Inject constructor() {
-    fun mapToImageEntity(image: ImageDTO.ImageItem): ImageEntity =
+    fun mapToImageEntity(image: WebToonImage): ImageEntity =
         ImageEntity(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
@@ -14,7 +15,7 @@ class EntityMapper @Inject constructor() {
             isBookMark = false
         )
 
-    fun mapToImageEntity(imageList: List<BookMark>): List<ImageEntity> =
+    fun mapToImageEntityList(imageList: List<BookMark>): List<ImageEntity> =
         imageList.map { image ->
             ImageEntity(
                 id = image.title + "_" + image.thumbnail,
@@ -24,13 +25,9 @@ class EntityMapper @Inject constructor() {
             )
         }
 
-    fun mapToBookMark(imageList: List<ImageEntity>): List<BookMark> =
+    fun mapToBookMarkList(imageList: List<ImageEntity>): List<BookMark> =
         imageList.map { image ->
-            BookMark(
-                id = image.title + "_" + image.thumbnail,
-                title = image.title,
-                thumbnail = image.thumbnail
-            )
+            mapToBookMark(image)
         }
 
     fun mapToBookMark(image: ImageEntity): BookMark =

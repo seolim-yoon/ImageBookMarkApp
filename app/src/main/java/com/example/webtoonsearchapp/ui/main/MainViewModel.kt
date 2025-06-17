@@ -13,7 +13,6 @@ import com.example.webtoonsearchapp.model.ImageUiModel
 import com.example.webtoonsearchapp.ui.main.contract.MainUiEffect
 import com.example.webtoonsearchapp.ui.main.contract.MainUiEvent
 import com.example.webtoonsearchapp.ui.main.contract.MainUiState
-import com.example.webtoonsearchapp.util.MAIN_KEYWORD
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -32,7 +31,7 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel<MainUiState, MainUiEvent, MainUiEffect>() {
     override fun createInitialState(): MainUiState = MainUiState()
 
-    val pagingFlow: Flow<PagingData<ImageUiModel>> = getMainImageListUseCase(MAIN_KEYWORD)
+    val pagingFlow: Flow<PagingData<ImageUiModel>> = getMainImageListUseCase()
         .map { pagingData ->
             pagingData.map { entity -> imageUiMapper.mapToImageUiModel(entity) }
         }
@@ -82,7 +81,9 @@ class MainViewModel @Inject constructor(
             }
 
             is MainUiEvent.ClickImageItem -> {
-
+                setEffect {
+                    MainUiEffect.NavigateToViewer
+                }
             }
         }
     }

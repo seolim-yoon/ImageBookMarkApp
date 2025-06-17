@@ -11,8 +11,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.placeholder
-import com.example.webtoonsearchapp.R
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
