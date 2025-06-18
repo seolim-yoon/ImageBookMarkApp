@@ -15,6 +15,12 @@ internal fun BookMarkScreen(
 ) {
     BookMarkImageListItem(
         imageList = state.bookMarkList,
-        onClickImageItem = { onEvent(MainUiEvent.ClickImageItem(it)) }
+        isSelectionMode = state.isSelectionMode,
+        selectedList = state.selectedList,
+        onClickImageItem = { onEvent(MainUiEvent.ClickImageItem(it)) },
+        onClickBookMark = { onEvent(MainUiEvent.ClickBookMark(it)) },
+        onLongClickList = { onEvent(MainUiEvent.LongClickList) },
+        onClickSave = { onEvent(MainUiEvent.SaveBookMark) },
+        onClickCancel = {onEvent(MainUiEvent.CancelBookMark) }
     )
 }

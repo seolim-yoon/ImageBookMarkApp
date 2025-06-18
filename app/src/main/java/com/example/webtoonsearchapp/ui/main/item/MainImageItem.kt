@@ -1,6 +1,7 @@
 package com.example.webtoonsearchapp.ui.main.item
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,13 +32,22 @@ import com.example.webtoonsearchapp.util.ImageItemParameterProvider
 @Composable
 internal fun MainImageItem(
     image: ImageUiModel,
+    isSelectionMode: Boolean,
+    isChecked: Boolean,
     onClickImageItem: () -> Unit,
-    onClickBookMark: () -> Unit
+    onClickBookMark: () -> Unit,
+    onLongClickList: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = Modifier.clickable {
             onClickImageItem()
+        }.pointerInput(Unit) {
+            detectTapGestures(
+                onLongPress = {
+                    onLongClickList()
+                }
+            )
         }
     ) {
         Box {
@@ -50,18 +61,26 @@ internal fun MainImageItem(
                     )
             )
 
-            Icon(
-                imageVector = if (image.isBookMark) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                contentDescription = null,
-                tint = if (image.isBookMark) Color.Red else Color.Black,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .clickable {
-                        onClickBookMark()
-                    }
-                    .padding(8.dp)
-            )
+            if (isSelectionMode) {
+                Checkbox(
+                    checked = isChecked,
+                    onCheckedChange = { onClickBookMark() },
+                    modifier = Modifier.align(Alignment.TopEnd)
+                )
+            } else {
+                if (image.isBookMark) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = null,
+                        tint = Color.Red,
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(4.dp)
+                    )
+                }
+            }
         }
+
         Text(
             text = image.title,
             maxLines = 2,
@@ -76,8 +95,11 @@ private fun PreviewMainImageItem(@PreviewParameter(ImageItemParameterProvider::c
     WebToonSearchAppTheme {
         MainImageItem(
             image = image,
+            isSelectionMode = true,
+            isChecked = image.isBookMark,
             onClickImageItem = {},
-            onClickBookMark = {}
+            onClickBookMark = {},
+            onLongClickList = {}
         )
     }
 }

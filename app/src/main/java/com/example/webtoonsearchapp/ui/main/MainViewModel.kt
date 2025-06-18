@@ -50,11 +50,13 @@ class MainViewModel @Inject constructor(
     private fun getBookMarkList() {
         viewModelScope.launch {
             getBookMarkListUseCase().collect { result ->
+                val updatedList = result.map { bookMark ->
+                    imageUiMapper.mapToImageUiModel(bookMark)
+                }
                 setState {
                     copy(
-                        bookMarkList = result.map { bookMark ->
-                            imageUiMapper.mapToImageUiModel(bookMark)
-                        }
+                        bookMarkList = updatedList,
+                        selectedList = updatedList.toSet()
                     )
                 }
             }
@@ -62,11 +64,28 @@ class MainViewModel @Inject constructor(
     }
 
     private fun clickBookMark(imageUiModel: ImageUiModel) {
-       viewModelScope.launch(Dispatchers.IO) {
-           clickBookMarkUseCase(
-                isAdd = !imageUiModel.isBookMark,
-                bookMarkItem = imageUiMapper.mapToImageEntity(imageUiModel)
+        val isSelected = imageUiModel in currentState.selectedList
+        val updatedSelectedList = if (isSelected) {
+            currentState.selectedList - imageUiModel
+        } else {
+            currentState.selectedList + imageUiModel
+        }
+
+        setState {
+            copy(selectedList = updatedSelectedList)
+        }
+    }
+
+    private fun saveBookMark() {
+        viewModelScope.launch(Dispatchers.IO) {
+            clickBookMarkUseCase(
+                bookMarkItems = currentState.selectedList.map { image -> imageUiMapper.mapToImageEntity(image) }
             )
+            setState {
+                copy(
+                    isSelectionMode = false
+                )
+            }
         }
     }
 
@@ -76,14 +95,44 @@ class MainViewModel @Inject constructor(
 
             }
 
+            is MainUiEvent.LongClickList -> {
+                setState {
+                    copy(
+                        isSelectionMode = true
+                    )
+                }
+            }
+
             is MainUiEvent.ClickBookMark -> {
                 clickBookMark(event.imageUiModel)
+            }
+
+            is MainUiEvent.SaveBookMark -> {
+                saveBookMark()
+            }
+
+            is MainUiEvent.CancelBookMark -> {
+                setState {
+                    copy(
+                        selectedList = emptySet(),
+                        isSelectionMode = false,
+                    )
+                }
             }
 
             is MainUiEvent.ClickImageItem -> {
                 setEffect {
                     MainUiEffect.NavigateToViewer
                 }
+            }
+
+            is MainUiEvent.OnTabSelected -> {
+//                setState {
+//                    copy(
+//                        isSelectionMode = false,
+//                        selectedList = bookMarkList.toSet()
+//                    )
+//                }// TODO :!!!
             }
         }
     }

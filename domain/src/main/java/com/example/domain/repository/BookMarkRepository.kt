@@ -6,7 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface BookMarkRepository {
     fun getAllBookMarkItem(): Flow<List<ImageEntity>>
 
-    suspend fun addBookMarkItem(item: ImageEntity): Long
-
-    suspend fun removeBookMarkItems(items: List<ImageEntity>): Int
+    suspend fun replaceBookmarkItems(items: List<ImageEntity>)
 }

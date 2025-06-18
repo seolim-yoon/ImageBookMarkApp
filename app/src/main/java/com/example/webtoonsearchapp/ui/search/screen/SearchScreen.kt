@@ -52,8 +52,6 @@ internal fun SearchScreen(
             onValueChange = { keyword -> onEvent(SearchUiEvent.InputKeyword(keyword)) },
             onClickClearBtn = { onEvent(SearchUiEvent.InputKeyword(DEFAULT_KEYWORD)) }
         )
-        Log.w("seolim", "inputKeyword : " + state.inputKeyword)
-        Log.w("seolim", "itemCount : " + pagingList.itemCount)
 
         if (state.inputKeyword.isNotBlank()) {
             if (pagingList.itemCount == 0) {

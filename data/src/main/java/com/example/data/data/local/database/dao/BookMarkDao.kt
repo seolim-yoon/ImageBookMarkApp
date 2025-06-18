@@ -14,8 +14,8 @@ interface BookMarkDao {
     fun getAllBookMarkItem(): Flow<List<BookMark>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addBookMarkItem(item: BookMark): Long
+    suspend fun addBookMarkItems(item: List<BookMark>)
 
-    @Delete
-    suspend fun removeBookMarkItems(items: List<BookMark>): Int
+    @Query("DELETE FROM BookMark")
+    suspend fun removeAllBookMarkItems()
 }
