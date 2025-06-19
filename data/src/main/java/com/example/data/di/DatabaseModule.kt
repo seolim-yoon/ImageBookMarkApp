@@ -2,7 +2,6 @@ package com.example.data.di
 
 import android.content.Context
 import com.example.data.data.local.database.AppDatabase
-import com.example.data.data.local.database.dao.BookMarkDao
 import com.example.data.data.local.database.dao.WebToonImageDao
 import dagger.Module
 import dagger.Provides
@@ -20,10 +19,6 @@ object DatabaseModule {
     fun provideAppDatabase(
         @ApplicationContext context: Context
     ) = AppDatabase.getInstance(context)
-
-    @Singleton
-    @Provides
-    fun provideBookMarkDao(appDatabase: AppDatabase): BookMarkDao = appDatabase.bookMarkDao()
 
     @Singleton
     @Provides

@@ -8,5 +8,5 @@ import javax.inject.Inject
 class GetBookMarkListUseCase @Inject constructor(
     private val bookMarkRepository: BookMarkRepository
 ) {
-    operator fun invoke(): Flow<List<ImageEntity>> = bookMarkRepository.getAllBookMarkItem()
+    operator fun invoke(): Flow<List<ImageEntity>> = bookMarkRepository.getAllBookMarkItems()
 }

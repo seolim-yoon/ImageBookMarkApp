@@ -9,22 +9,27 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.webtoonsearchapp.model.ImageUiModel
 import com.example.webtoonsearchapp.ui.common.screen.ErrorScreen
+import com.example.webtoonsearchapp.ui.main.contract.MainUiEffect
 import com.example.webtoonsearchapp.ui.main.contract.MainUiEvent
 import com.example.webtoonsearchapp.ui.main.contract.MainUiState
 import com.example.webtoonsearchapp.ui.main.item.MainImageListItem
+import kotlinx.coroutines.flow.Flow
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MainScreen(
     pagingList: LazyPagingItems<ImageUiModel>,
     state: MainUiState,
-    onEvent: (MainUiEvent) -> Unit
+    onEvent: (MainUiEvent) -> Unit,
+    effectFlow: Flow<MainUiEffect>,
+    navigateToViewer: (String) -> Unit
 ) {
     val loadState = pagingList.loadState.refresh
     val pullToRefreshState = rememberPullRefreshState(
@@ -33,6 +38,17 @@ internal fun MainScreen(
             pagingList.refresh()
         }
     )
+
+    LaunchedEffect(Unit) {
+        effectFlow.collect { effect ->
+            when (effect) {
+                is MainUiEffect.NavigateToViewer -> {
+                    navigateToViewer(effect.id)
+                }
+            }
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()

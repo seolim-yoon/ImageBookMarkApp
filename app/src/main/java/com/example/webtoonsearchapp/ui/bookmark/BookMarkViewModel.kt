@@ -1,46 +1,45 @@
-package com.example.webtoonsearchapp.ui.main
+package com.example.webtoonsearchapp.ui.bookmark
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.map
 import com.example.domain.usecase.ClickBookMarkUseCase
 import com.example.domain.usecase.GetBookMarkListUseCase
-import com.example.domain.usecase.GetMainImageListUseCase
 import com.example.webtoonsearchapp.base.BaseViewModel
 import com.example.webtoonsearchapp.mapper.ImageUiMapper
 import com.example.webtoonsearchapp.model.ImageUiModel
-import com.example.webtoonsearchapp.ui.main.contract.MainUiEffect
-import com.example.webtoonsearchapp.ui.main.contract.MainUiEvent
-import com.example.webtoonsearchapp.ui.main.contract.MainUiState
+import com.example.webtoonsearchapp.ui.bookmark.contract.BookMarkUiEffect
+import com.example.webtoonsearchapp.ui.bookmark.contract.BookMarkUiEvent
+import com.example.webtoonsearchapp.ui.bookmark.contract.BookMarkUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    getMainImageListUseCase: GetMainImageListUseCase,
+class BookMarkViewModel @Inject constructor(
     private val getBookMarkListUseCase: GetBookMarkListUseCase,
     private val clickBookMarkUseCase: ClickBookMarkUseCase,
     private val imageUiMapper: ImageUiMapper
-) : BaseViewModel<MainUiState, MainUiEvent, MainUiEffect>() {
-    override fun createInitialState(): MainUiState = MainUiState()
+) : BaseViewModel<BookMarkUiState, BookMarkUiEvent, BookMarkUiEffect>() {
+    override fun createInitialState(): BookMarkUiState = BookMarkUiState()
 
-    val pagingFlow: Flow<PagingData<ImageUiModel>> = getMainImageListUseCase()
-        .map { pagingData ->
-            pagingData.map { entity -> imageUiMapper.mapToImageUiModel(entity) }
+    init {
+        getBookMarkList()
+    }
+
+    private fun getBookMarkList() {
+        viewModelScope.launch {
+            getBookMarkListUseCase().collect { result ->
+                val updatedList = result.map { bookMark ->
+                    imageUiMapper.mapToImageUiModel(bookMark)
+                }
+                setState {
+                    copy(
+                        bookMarkList = updatedList
+                    )
+                }
+            }
         }
-        .cachedIn(viewModelScope)
-//        .combine(state) { pagingData, uiState ->
-//            val bookMarkIds = uiState.bookMarkList.map { it.id }.toSet()
-//            pagingData.map { image ->
-//                image.copy(isBookMark = bookMarkIds.contains(image.id))
-//            }
-//        }
+    }
 
     private fun clickBookMark(imageUiModel: ImageUiModel) {
         val isSelected = imageUiModel in currentState.selectedList
@@ -58,7 +57,7 @@ class MainViewModel @Inject constructor(
     private fun saveBookMark() {
         viewModelScope.launch(Dispatchers.IO) {
             clickBookMarkUseCase(
-                isAdd = true,
+                isAdd = false,
                 bookMarkItems = currentState.selectedList.map { image -> imageUiMapper.mapToImageEntity(image) }
             )
             setState {
@@ -69,9 +68,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    override fun onEvent(event: MainUiEvent) {
+    override fun onEvent(event: BookMarkUiEvent) {
         when (event) {
-            is MainUiEvent.LongClickList -> {
+            is BookMarkUiEvent.LongClickList -> {
                 setState {
                     copy(
                         isSelectionMode = true
@@ -79,15 +78,15 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-            is MainUiEvent.ClickBookMark -> {
+            is BookMarkUiEvent.ClickBookMark -> {
                 clickBookMark(event.imageUiModel)
             }
 
-            is MainUiEvent.SaveBookMark -> {
+            is BookMarkUiEvent.SaveBookMark -> {
                 saveBookMark()
             }
 
-            is MainUiEvent.CancelBookMark -> {
+            is BookMarkUiEvent.CancelBookMark -> {
                 setState {
                     copy(
                         selectedList = emptySet(),
@@ -96,9 +95,9 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-            is MainUiEvent.ClickImageItem -> {
+            is BookMarkUiEvent.ClickImageItem -> {
                 setEffect {
-                    MainUiEffect.NavigateToViewer(event.imageUiModel.id)
+                    BookMarkUiEffect.NavigateToViewer(event.imageUiModel.id)
                 }
             }
         }

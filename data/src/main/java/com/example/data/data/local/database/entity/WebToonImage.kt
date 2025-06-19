@@ -12,5 +12,6 @@ data class WebToonImage(
     val title: String,
     val link: String,
     val thumbnail: String,
-    val page: Int
+    val isBookMark: Boolean,
+    val page: Int = 0
 )

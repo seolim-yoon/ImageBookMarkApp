@@ -5,6 +5,5 @@ import com.example.webtoonsearchapp.model.ImageUiModel
 
 data class MainUiState(
     val isSelectionMode: Boolean = false,
-    val selectedList: Set<ImageUiModel> = emptySet(),
-    val bookMarkList: List<ImageUiModel> = emptyList()
+    val selectedList: Set<ImageUiModel> = emptySet()
 ): UiState

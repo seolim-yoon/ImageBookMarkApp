@@ -4,7 +4,7 @@ import com.example.domain.entity.ImageEntity
 import kotlinx.coroutines.flow.Flow
 
 interface BookMarkRepository {
-    fun getAllBookMarkItem(): Flow<List<ImageEntity>>
-
-    suspend fun replaceBookmarkItems(items: List<ImageEntity>)
+    fun getAllBookMarkItems(): Flow<List<ImageEntity>>
+    suspend fun addBookMarkItems(ids: List<String>)
+    suspend fun removeBookMarkItems(ids: List<String>)
 }

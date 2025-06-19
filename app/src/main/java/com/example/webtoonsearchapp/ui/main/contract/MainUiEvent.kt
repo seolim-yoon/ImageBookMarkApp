@@ -13,5 +13,4 @@ sealed interface MainUiEvent: UiEvent {
     data class ClickImageItem(
         val imageUiModel: ImageUiModel
     ): MainUiEvent
-    data object OnTabSelected: MainUiEvent
 }

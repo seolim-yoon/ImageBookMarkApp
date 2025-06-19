@@ -1,42 +1,36 @@
 package com.example.data.mapper
 
-import com.example.data.data.local.database.entity.BookMark
 import com.example.data.data.local.database.entity.WebToonImage
-import com.example.data.dto.ImageDTO
 import com.example.domain.entity.ImageEntity
 import javax.inject.Inject
 
 class EntityMapper @Inject constructor() {
+    fun mapToImageEntityList(imageList: List<WebToonImage>): List<ImageEntity> =
+        imageList.map { image ->
+            mapToImageEntity(image)
+        }
+
     fun mapToImageEntity(image: WebToonImage): ImageEntity =
         ImageEntity(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
             link = image.link,
             thumbnail = image.thumbnail,
-            isBookMark = false
+            isBookMark = image.isBookMark
         )
 
-    fun mapToImageEntityList(imageList: List<BookMark>): List<ImageEntity> =
-        imageList.map { image ->
-            ImageEntity(
-                id = image.title + "_" + image.thumbnail,
-                title = image.title,
-                link = image.link,
-                thumbnail = image.thumbnail,
-                isBookMark = true
-            )
-        }
-
-    fun mapToBookMarkList(imageList: List<ImageEntity>): List<BookMark> =
+    fun mapToBookMarkList(imageList: List<ImageEntity>): List<WebToonImage> =
         imageList.map { image ->
             mapToBookMark(image)
         }
 
-    private fun mapToBookMark(image: ImageEntity): BookMark =
-        BookMark(
+    private fun mapToBookMark(image: ImageEntity): WebToonImage =
+        WebToonImage(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
             link = image.link,
-            thumbnail = image.thumbnail
+            thumbnail = image.thumbnail,
+            isBookMark = image.isBookMark
+
         )
 }

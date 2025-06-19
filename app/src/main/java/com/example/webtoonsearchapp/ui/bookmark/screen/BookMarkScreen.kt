@@ -1,23 +1,38 @@
 package com.example.webtoonsearchapp.ui.bookmark.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import com.example.webtoonsearchapp.ui.bookmark.contract.BookMarkUiEffect
+import com.example.webtoonsearchapp.ui.bookmark.contract.BookMarkUiEvent
+import com.example.webtoonsearchapp.ui.bookmark.contract.BookMarkUiState
 import com.example.webtoonsearchapp.ui.bookmark.item.BookMarkImageListItem
-import com.example.webtoonsearchapp.ui.main.contract.MainUiEvent
-import com.example.webtoonsearchapp.ui.main.contract.MainUiState
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 internal fun BookMarkScreen(
-    state: MainUiState,
-    onEvent: (MainUiEvent) -> Unit
+    state: BookMarkUiState,
+    onEvent: (BookMarkUiEvent) -> Unit,
+    effectFlow: Flow<BookMarkUiEffect>,
+    navigateToViewer: (String) -> Unit
 ) {
+    LaunchedEffect(Unit) {
+        effectFlow.collect { effect ->
+            when (effect) {
+                is BookMarkUiEffect.NavigateToViewer -> {
+                    navigateToViewer(effect.id)
+                }
+            }
+        }
+    }
+
     BookMarkImageListItem(
         imageList = state.bookMarkList,
         isSelectionMode = state.isSelectionMode,
         selectedList = state.selectedList,
-        onClickImageItem = { onEvent(MainUiEvent.ClickImageItem(it)) },
-        onClickBookMark = { onEvent(MainUiEvent.ClickBookMark(it)) },
-        onLongClickList = { onEvent(MainUiEvent.LongClickList) },
-        onClickSave = { onEvent(MainUiEvent.SaveBookMark) },
-        onClickCancel = {onEvent(MainUiEvent.CancelBookMark) }
+        onClickImageItem = { onEvent(BookMarkUiEvent.ClickImageItem(it)) },
+        onClickBookMark = { onEvent(BookMarkUiEvent.ClickBookMark(it)) },
+        onLongClickList = { onEvent(BookMarkUiEvent.LongClickList) },
+        onClickSave = { onEvent(BookMarkUiEvent.SaveBookMark) },
+        onClickCancel = {onEvent(BookMarkUiEvent.CancelBookMark) }
     )
 }
