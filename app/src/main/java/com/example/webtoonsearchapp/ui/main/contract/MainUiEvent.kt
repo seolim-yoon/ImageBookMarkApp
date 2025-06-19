@@ -4,7 +4,6 @@ import com.example.webtoonsearchapp.base.UiEvent
 import com.example.webtoonsearchapp.model.ImageUiModel
 
 sealed interface MainUiEvent: UiEvent {
-    data object Refresh: MainUiEvent
     data object LongClickList: MainUiEvent
     data class ClickBookMark(
         val imageUiModel: ImageUiModel

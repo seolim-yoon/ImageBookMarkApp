@@ -55,10 +55,6 @@ class SearchViewModel @Inject constructor(
 
     override fun onEvent(event: SearchUiEvent) {
         when (event) {
-            is SearchUiEvent.Refresh -> {
-
-            }
-
             is SearchUiEvent.InputKeyword -> {
                 inputSearchKeyword(event.keyword)
             }

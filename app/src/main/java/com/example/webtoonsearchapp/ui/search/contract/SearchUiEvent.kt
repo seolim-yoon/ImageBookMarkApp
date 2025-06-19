@@ -4,7 +4,6 @@ import com.example.webtoonsearchapp.base.UiEvent
 import com.example.webtoonsearchapp.model.ImageUiModel
 
 sealed interface SearchUiEvent: UiEvent {
-    data object Refresh: SearchUiEvent
     data class InputKeyword(
         val keyword: String
     ): SearchUiEvent

@@ -91,10 +91,6 @@ class MainViewModel @Inject constructor(
 
     override fun onEvent(event: MainUiEvent) {
         when (event) {
-            is MainUiEvent.Refresh -> {
-
-            }
-
             is MainUiEvent.LongClickList -> {
                 setState {
                     copy(

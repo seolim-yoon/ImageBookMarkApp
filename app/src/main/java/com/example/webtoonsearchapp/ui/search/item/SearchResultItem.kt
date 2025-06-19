@@ -15,8 +15,7 @@ internal fun SearchResultItem(
     listState: LazyListState,
     pagingList: LazyPagingItems<ImageUiModel>,
     keyword: String,
-    onClickImageItem: (ImageUiModel) -> Unit,
-    onRefresh: () -> Unit
+    onClickImageItem: (ImageUiModel) -> Unit
 ) {
     when (pagingList.loadState.refresh) {
         is LoadState.Loading -> {
@@ -37,7 +36,9 @@ internal fun SearchResultItem(
         is LoadState.Error -> {
             ErrorScreen(
                 errorMessage = (pagingList.loadState.refresh as LoadState.Error).error.message.toString(),
-                onRefresh = onRefresh
+                onRefresh = {
+                    pagingList.refresh()
+                }
             )
         }
     }

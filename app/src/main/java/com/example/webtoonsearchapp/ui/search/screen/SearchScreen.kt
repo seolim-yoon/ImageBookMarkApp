@@ -60,8 +60,7 @@ internal fun SearchScreen(
                     listState = listState,
                     pagingList = pagingList,
                     keyword = state.inputKeyword,
-                    onClickImageItem = { onEvent(SearchUiEvent.ClickImageItem(it)) },
-                    onRefresh = { onEvent(SearchUiEvent.Refresh) }
+                    onClickImageItem = { onEvent(SearchUiEvent.ClickImageItem(it)) }
                 )
             }
         }
