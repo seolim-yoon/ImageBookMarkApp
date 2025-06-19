@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ImageRepository {
     fun getImageList(): Flow<PagingData<ImageEntity>>
+    fun getImageUrlList(): Flow<PagingData<String>>
 }

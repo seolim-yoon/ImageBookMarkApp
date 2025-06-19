@@ -36,7 +36,8 @@ internal fun BaseScreen(
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         BottomTabNavGraph(
-            navController = mainAppState.navController,
+            mainAppState = mainAppState,
+            navigateToViewer = baseAppState::navigateToViewerScreen,
             modifier = Modifier.padding(innerPadding)
         )
     }

@@ -11,6 +11,7 @@ class EntityMapper @Inject constructor() {
         ImageEntity(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
+            link = image.link,
             thumbnail = image.thumbnail,
             isBookMark = false
         )
@@ -20,6 +21,7 @@ class EntityMapper @Inject constructor() {
             ImageEntity(
                 id = image.title + "_" + image.thumbnail,
                 title = image.title,
+                link = image.link,
                 thumbnail = image.thumbnail,
                 isBookMark = true
             )
@@ -30,10 +32,11 @@ class EntityMapper @Inject constructor() {
             mapToBookMark(image)
         }
 
-    fun mapToBookMark(image: ImageEntity): BookMark =
+    private fun mapToBookMark(image: ImageEntity): BookMark =
         BookMark(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
+            link = image.link,
             thumbnail = image.thumbnail
         )
 }

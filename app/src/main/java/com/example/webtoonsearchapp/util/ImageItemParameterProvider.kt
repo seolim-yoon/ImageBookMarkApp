@@ -14,6 +14,7 @@ class ImageItemParameterProvider(
 private val defaultCase = ImageUiModel(
     id = "",
     title = "타이틀입니다",
+    link = "",
     thumbnail = "",
     isBookMark = false
 )
@@ -21,6 +22,7 @@ private val defaultCase = ImageUiModel(
 private val longTitleCase = ImageUiModel(
     id = "",
     title = "타이틀입니다 타이틀입니다 타이틀입니다 타이틀입니다 타이틀입니다 타이틀입니다",
+    link = "",
     thumbnail = "",
     isBookMark = false
 )
@@ -28,6 +30,7 @@ private val longTitleCase = ImageUiModel(
 private val bookMarkCase = ImageUiModel(
     id = "",
     title = "타이틀입니다 타이틀입니다 타이틀입니다 타이틀입니다 타이틀입니다 타이틀입니다",
+    link = "",
     thumbnail = "",
     isBookMark = true
 )
@@ -36,6 +39,7 @@ val PreviewImageList = List(5) { index ->
     ImageUiModel(
         id = index.toString(),
         title = "타이틀입니다",
+        link = "",
         thumbnail = "",
         isBookMark = false
     )

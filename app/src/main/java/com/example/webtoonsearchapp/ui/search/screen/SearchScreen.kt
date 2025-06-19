@@ -1,6 +1,5 @@
 package com.example.webtoonsearchapp.ui.search.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,7 +25,7 @@ internal fun SearchScreen(
     state: SearchUiState,
     onEvent: (SearchUiEvent) -> Unit,
     effectFlow: Flow<SearchUiEffect>,
-    navigateToViewer: () -> Unit
+    navigateToViewer: (String) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -37,7 +36,7 @@ internal fun SearchScreen(
                     listState.scrollToItem(0)
                 }
                 is SearchUiEffect.NavigateToViewer -> {
-                    navigateToViewer()
+                    navigateToViewer(effect.id)
                 }
             }
         }

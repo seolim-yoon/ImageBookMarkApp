@@ -10,5 +10,6 @@ data class BookMark(
     @ColumnInfo(name = "image_id")
     val id: String,
     val title: String,
+    val link: String,
     val thumbnail: String
 )

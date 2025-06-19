@@ -8,6 +8,7 @@ fun ImageDTO.mapToWebToonImageList(page: Int): List<WebToonImage> =
         WebToonImage(
             id = image.title + "_" + image.thumbnail,
             title = image.title,
+            link = image.link,
             thumbnail = image.thumbnail,
             page = page
         )

@@ -9,6 +9,7 @@ class ImageUiMapper @Inject constructor() {
         ImageUiModel(
             id = image.id,
             title = image.title,
+            link = image.link,
             thumbnail = image.thumbnail,
             isBookMark = image.isBookMark,
         )
@@ -17,6 +18,7 @@ class ImageUiMapper @Inject constructor() {
         ImageEntity(
             id = image.id,
             title = image.title,
+            link = image.link,
             thumbnail = image.thumbnail,
             isBookMark = image.isBookMark,
         )

@@ -11,9 +11,8 @@ sealed interface ScreenType {
     data object BookMark : ScreenType
     @Serializable
     data object Search : ScreenType
-
     @Serializable
     data class Viewer(
-        val id: Int
+        val id: String
     ) : ScreenType
 }

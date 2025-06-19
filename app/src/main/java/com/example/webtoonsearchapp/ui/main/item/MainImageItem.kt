@@ -1,6 +1,9 @@
 package com.example.webtoonsearchapp.ui.main.item
 
+import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +32,7 @@ import com.example.webtoonsearchapp.ui.common.item.CommonGlideImage
 import com.example.webtoonsearchapp.ui.theme.WebToonSearchAppTheme
 import com.example.webtoonsearchapp.util.ImageItemParameterProvider
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun MainImageItem(
     image: ImageUiModel,
@@ -40,15 +44,10 @@ internal fun MainImageItem(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = Modifier.clickable {
-            onClickImageItem()
-        }.pointerInput(Unit) {
-            detectTapGestures(
-                onLongPress = {
-                    onLongClickList()
-                }
-            )
-        }
+        modifier = Modifier.combinedClickable(
+            onClick = onClickImageItem,
+            onLongClick = onLongClickList
+        )
     ) {
         Box {
             CommonGlideImage(

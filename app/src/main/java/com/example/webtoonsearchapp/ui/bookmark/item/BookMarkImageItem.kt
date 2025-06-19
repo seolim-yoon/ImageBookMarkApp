@@ -1,6 +1,8 @@
 package com.example.webtoonsearchapp.ui.bookmark.item
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -28,6 +30,7 @@ import com.example.webtoonsearchapp.util.DEFAULT_KEYWORD
 import com.example.webtoonsearchapp.util.ImageItemParameterProvider
 import com.example.webtoonsearchapp.util.buildHighlightString
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun BookMarkImageItem(
     image: ImageUiModel,
@@ -43,16 +46,10 @@ internal fun BookMarkImageItem(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                onClickImageItem()
-            }
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onLongPress = {
-                        onLongClickList()
-                    }
-                )
-            }
+            .combinedClickable(
+                onClick = onClickImageItem,
+                onLongClick = onLongClickList
+            )
     ) {
         if (isSelectionMode) {
             Checkbox(

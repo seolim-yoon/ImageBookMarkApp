@@ -10,6 +10,7 @@ data class WebToonImage(
     @ColumnInfo(name = "image_id")
     val id: String,
     val title: String,
+    val link: String,
     val thumbnail: String,
     val page: Int
 )

@@ -1,6 +1,5 @@
 package com.example.webtoonsearchapp.ui.common.graph
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,7 +10,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.webtoonsearchapp.ui.common.screen.BaseScreen
 import com.example.webtoonsearchapp.ui.search.SearchViewModel
 import com.example.webtoonsearchapp.ui.search.screen.SearchScreen
-import com.example.webtoonsearchapp.ui.viewer.ViewerScreen
+import com.example.webtoonsearchapp.ui.viewer.ViewerViewModel
+import com.example.webtoonsearchapp.ui.viewer.screen.ViewerScreen
 import com.example.webtoonsearchapp.util.AppState
 import com.example.webtoonsearchapp.util.ScreenType
 
@@ -36,8 +36,6 @@ internal fun NavHostGraph(
             val pagingList = viewModel.pagingFlow.collectAsLazyPagingItems()
             val state by viewModel.state.collectAsStateWithLifecycle()
 
-
-            Log.v("seolim", "pagingList : " + pagingList.itemCount)
             SearchScreen(
                 pagingList = pagingList,
                 state = state,
@@ -48,7 +46,11 @@ internal fun NavHostGraph(
         }
 
         composable<ScreenType.Viewer> {
-            ViewerScreen()
+            val viewModel: ViewerViewModel = hiltViewModel()
+            val pagingList = viewModel.pagingFlow.collectAsLazyPagingItems()
+            ViewerScreen(
+                pagingList = pagingList
+            )
         }
     }
 }

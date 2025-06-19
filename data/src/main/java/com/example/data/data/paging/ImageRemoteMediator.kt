@@ -52,6 +52,7 @@ class ImageRemoteMediator(
 
     companion object {
         const val PAGE_SIZE = 50
+        const val IMAGE_URL_PAGE_SIZE = 30
         const val PRE_FETCH_SIZE = 3
         const val DEFAULT_PAGE = 1
     }

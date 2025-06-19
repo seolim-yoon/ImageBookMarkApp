@@ -122,7 +122,7 @@ class MainViewModel @Inject constructor(
 
             is MainUiEvent.ClickImageItem -> {
                 setEffect {
-                    MainUiEffect.NavigateToViewer
+                    MainUiEffect.NavigateToViewer(event.imageUiModel.id)
                 }
             }
 

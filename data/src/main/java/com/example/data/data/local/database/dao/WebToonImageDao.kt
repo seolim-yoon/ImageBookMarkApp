@@ -11,10 +11,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WebToonImageDao {
     @Query("SELECT * FROM WebToonImage")
-    fun getAllWebToonItem(): PagingSource<Int, WebToonImage>
+    fun getAllWebToonItems(): PagingSource<Int, WebToonImage>
 
     @Query("SELECT * FROM WebToonImage WHERE title LIKE '%' || :keyword || '%'")
     fun getWebToonItemByKeyword(keyword: String): PagingSource<Int, WebToonImage>
+
+    @Query("SELECT link FROM WebToonImage")
+    fun getAllWebToonItemUrls(): PagingSource<Int, String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(images: List<WebToonImage>)

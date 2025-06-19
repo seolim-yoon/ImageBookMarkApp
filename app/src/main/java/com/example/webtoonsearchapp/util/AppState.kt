@@ -36,7 +36,9 @@ class AppState(
         navController.navigate(ScreenType.Search)
     }
 
-    fun navigateToViewerScreen() {
-        navController.navigate(ScreenType.Viewer)
+    fun navigateToViewerScreen(id: String) {
+        navController.navigate(ScreenType.Viewer(
+            id = id
+        ))
     }
 }

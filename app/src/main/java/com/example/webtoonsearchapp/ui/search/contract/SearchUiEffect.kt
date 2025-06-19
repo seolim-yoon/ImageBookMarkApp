@@ -4,5 +4,5 @@ import com.example.webtoonsearchapp.base.UiEffect
 
 sealed interface SearchUiEffect: UiEffect {
     data object ScrollToTop: SearchUiEffect
-    data object NavigateToViewer: SearchUiEffect
+    data class NavigateToViewer(val id: String): SearchUiEffect
 }
