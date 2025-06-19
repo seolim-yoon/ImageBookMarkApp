@@ -19,7 +19,7 @@ internal fun BookMarkScreen(
         effectFlow.collect { effect ->
             when (effect) {
                 is BookMarkUiEffect.NavigateToViewer -> {
-                    navigateToViewer(effect.id)
+                    navigateToViewer(effect.url)
                 }
             }
         }
@@ -29,7 +29,7 @@ internal fun BookMarkScreen(
         imageList = state.bookMarkList,
         isSelectionMode = state.isSelectionMode,
         selectedList = state.selectedList,
-        onClickImageItem = { onEvent(BookMarkUiEvent.ClickImageItem(it)) },
+        onClickImageItem = { if (!state.isSelectionMode) onEvent(BookMarkUiEvent.ClickImageItem(it)) },
         onClickBookMark = { onEvent(BookMarkUiEvent.ClickBookMark(it)) },
         onLongClickList = { onEvent(BookMarkUiEvent.LongClickList) },
         onClickSave = { onEvent(BookMarkUiEvent.SaveBookMark) },

@@ -35,16 +35,18 @@ class MainViewModel @Inject constructor(
             pagingData.map { entity -> imageUiMapper.mapToImageUiModel(entity) }
         }
         .cachedIn(viewModelScope)
-//        .combine(state) { pagingData, uiState ->
-//            val bookMarkIds = uiState.bookMarkList.map { it.id }.toSet()
-//            pagingData.map { image ->
-//                image.copy(isBookMark = bookMarkIds.contains(image.id))
-//            }
-//        }
+
+    private fun longClickList() {
+        setState {
+            copy(
+                isSelectionMode = true
+            )
+        }
+    }
 
     private fun clickBookMark(imageUiModel: ImageUiModel) {
-        val isSelected = imageUiModel in currentState.selectedList
-        val updatedSelectedList = if (isSelected) {
+        val isAlreadySelected = imageUiModel in currentState.selectedList
+        val updatedSelectedList = if (isAlreadySelected) {
             currentState.selectedList - imageUiModel
         } else {
             currentState.selectedList + imageUiModel
@@ -69,14 +71,25 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun cancelBookMark() {
+        setState {
+            copy(
+                isSelectionMode = false,
+                selectedList = emptySet()
+            )
+        }
+    }
+
+    private fun clickImageItem(url: String) {
+        setEffect {
+            MainUiEffect.NavigateToViewer(url)
+        }
+    }
+
     override fun onEvent(event: MainUiEvent) {
         when (event) {
             is MainUiEvent.LongClickList -> {
-                setState {
-                    copy(
-                        isSelectionMode = true
-                    )
-                }
+                longClickList()
             }
 
             is MainUiEvent.ClickBookMark -> {
@@ -88,18 +101,11 @@ class MainViewModel @Inject constructor(
             }
 
             is MainUiEvent.CancelBookMark -> {
-                setState {
-                    copy(
-                        selectedList = emptySet(),
-                        isSelectionMode = false,
-                    )
-                }
+                cancelBookMark()
             }
 
             is MainUiEvent.ClickImageItem -> {
-                setEffect {
-                    MainUiEffect.NavigateToViewer(event.imageUiModel.id)
-                }
+                clickImageItem(event.imageUiModel.link)
             }
         }
     }

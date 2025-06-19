@@ -28,8 +28,8 @@ internal fun BottomTabNavGraph(
     ) {
         composable<ScreenType.Main> {
             val viewModel: MainViewModel = hiltViewModel()
-            val state by viewModel.state.collectAsStateWithLifecycle()
             val pagingList = viewModel.pagingFlow.collectAsLazyPagingItems()
+            val state by viewModel.state.collectAsStateWithLifecycle()
 
             MainScreen(
                 pagingList = pagingList,

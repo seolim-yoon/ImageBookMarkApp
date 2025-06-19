@@ -61,7 +61,7 @@ class SearchViewModel @Inject constructor(
 
             is SearchUiEvent.ClickImageItem -> {
                 setEffect {
-                    SearchUiEffect.NavigateToViewer(event.imageUiModel.id)
+                    SearchUiEffect.NavigateToViewer(event.imageUiModel.link)
                 }
             }
         }

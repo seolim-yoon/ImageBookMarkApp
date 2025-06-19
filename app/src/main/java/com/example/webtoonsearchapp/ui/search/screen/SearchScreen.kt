@@ -36,7 +36,7 @@ internal fun SearchScreen(
                     listState.scrollToItem(0)
                 }
                 is SearchUiEffect.NavigateToViewer -> {
-                    navigateToViewer(effect.id)
+                    navigateToViewer(effect.url)
                 }
             }
         }

@@ -45,11 +45,14 @@ internal fun NavHostGraph(
             )
         }
 
-        composable<ScreenType.Viewer> {
+        composable<ScreenType.Viewer> { backStackEntry ->
             val viewModel: ViewerViewModel = hiltViewModel()
             val pagingList = viewModel.pagingFlow.collectAsLazyPagingItems()
+            val linkUrl = backStackEntry.arguments?.getString("url") ?: ""
+
             ViewerScreen(
-                pagingList = pagingList
+                pagingList = pagingList,
+                currentLinkUrl = linkUrl
             )
         }
     }

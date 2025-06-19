@@ -13,6 +13,6 @@ sealed interface ScreenType {
     data object Search : ScreenType
     @Serializable
     data class Viewer(
-        val id: String
+        val url: String
     ) : ScreenType
 }

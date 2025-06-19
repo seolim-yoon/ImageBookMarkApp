@@ -18,6 +18,7 @@ internal fun BaseScreen(
     baseAppState: AppState
 ) {
     val mainAppState: AppState = rememberAppState()
+
     Scaffold(
         topBar = {
             TopAppBarItem(
@@ -35,6 +36,7 @@ internal fun BaseScreen(
         },
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
+
         BottomTabNavGraph(
             mainAppState = mainAppState,
             navigateToViewer = baseAppState::navigateToViewerScreen,

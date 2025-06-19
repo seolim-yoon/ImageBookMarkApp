@@ -43,7 +43,7 @@ internal fun MainScreen(
         effectFlow.collect { effect ->
             when (effect) {
                 is MainUiEffect.NavigateToViewer -> {
-                    navigateToViewer(effect.id)
+                    navigateToViewer(effect.url)
                 }
             }
         }
@@ -69,7 +69,7 @@ internal fun MainScreen(
                     pagingList = pagingList,
                     isSelectionMode = state.isSelectionMode,
                     selectedList = state.selectedList,
-                    onClickImageItem = { onEvent(MainUiEvent.ClickImageItem(it)) },
+                    onClickImageItem = { if (!state.isSelectionMode) onEvent(MainUiEvent.ClickImageItem(it)) },
                     onClickBookMark = { onEvent(MainUiEvent.ClickBookMark(it)) },
                     onLongClickList = { onEvent(MainUiEvent.LongClickList) },
                     onClickSave = { onEvent(MainUiEvent.SaveBookMark) },
