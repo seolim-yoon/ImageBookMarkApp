@@ -69,9 +69,16 @@
 <br/>
 
 ## 이미지 처리 방식
+ViewerScreen에서 많은 이미지를 스크롤 처리 하기 위해 일시적으로 메모리 캐시 크기 조절
+```
+DisposableEffect(Unit) {
+    Glide.get(context).setMemoryCategory(MemoryCategory.HIGH)
 
-
-
+    onDispose {
+        Glide.get(context).setMemoryCategory(MemoryCategory.NORMAL)
+    }
+}
+```
 
 
 <br/>
